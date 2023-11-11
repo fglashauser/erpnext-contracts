@@ -4,7 +4,14 @@ app_publisher = "PC-Giga"
 app_description = "A extension of existing contracting in ERPNext"
 app_email = "info@pc-giga.de"
 app_license = "mit"
-# required_apps = []
+required_apps = ["erpnext"]
+
+fixtures = [
+    {"dt": "DocType", "filters": [
+        ["module", "=", "Contracts"]
+    ]}
+]
+
 
 # Includes in <head>
 # ------------------
