@@ -6,12 +6,11 @@ app_email = "info@pc-giga.de"
 app_license = "mit"
 required_apps = ["erpnext"]
 
-fixtures = [
-    {"dt": "DocType", "filters": [
-        ["module", "=", "Contracts"]
-    ]}
-]
-
+# fixtures = [
+#     {"dt": "DocType", "filters": [
+#         ["module", "=", "Contracts"]
+#     ]}
+# ]
 
 # Includes in <head>
 # ------------------

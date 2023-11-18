@@ -9,6 +9,23 @@ Is indefinite,Unbefristet,
 Order number,Bestellnummer,
 Commission,Kommission,
 
+Notice Period,Kündigungsfrist,
+day(s),Tag(e),
+week(s),Woche(n),
+month(s),Monat(e),
+year(s),Jahr(e),
+before Contract end,vor Vertragsende,
+at Month's end,zum Monatsende,
+at Quarter's end,zum Quartalsende,
+at Calendar year end,zum Kalenderjahresende,
+at Contract year end,zum Vertragsjahresende,
+on 15th of month,zum 15. des Monats,
+on 15th or end of month, zum 15. oder Ende des Monats
+at mid-year,zum Kalenderhalbjahr,
+Termination effective date,Kündigungsstichtag,
+
+Automatic renewal,Automatische Verlängerung,
+
 Signing date,Abschlussdatum,
 Contract number,Vertragsnummer,
 Accountable Person,Verantwortlicher,
@@ -17,10 +34,33 @@ Use as template,Als Vorlage verwenden,
 Payment term,Zahlungsbedingung,
 Payment method,Zahlungsart,
 
+Billing type,Abrechnungstyp,
+Create sales order,Auftrag erzeugen,
+Create invoice before billing period,Rechnung erzeugen vor Abrechnungsperiode,
+Create invoice after billing period,Rechnung erzeugen nach Abrechnungsperiode,
+Not billable,Nicht abrechenbar,
+
+Billing day,Abrechnungstag,
+Billing day of positions,Abrechnungstag der Positionen,
+
 Positions,Positionen,
 
 Unit Price,Einzelpreis,
 Valid from,Gültig ab,
 Valid until,Gültig bis,
 
+Last billing date,Letztes Abrechnungsdatum,
+Next billing date,Nächstes Abrechnungsdatum,
+
 Contract Type,Vertragstyp,
+
+daily,täglich,
+weekly,wöchentlich,
+monthly,monatlich,
+quarterly,quartalsweise,
+half-yearly,halbjährlich,
+yearly,jährlich,
+2 years,2-jährlich,
+3 years,3-jährlich,
+4 years,4-jährlich,
+5 years,5-jährlich,

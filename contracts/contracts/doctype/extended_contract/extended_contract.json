@@ -1,0 +1,269 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:title",
+ "creation": "2023-11-15 16:14:51.144585",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "sb_contract",
+  "title",
+  "status",
+  "party_type",
+  "party_name",
+  "contract_type",
+  "column_break_sqjx",
+  "is_indefinite",
+  "start_date",
+  "end_date",
+  "order_number",
+  "commission",
+  "sb_notice_period",
+  "notice_period_amount",
+  "termination_effective_date",
+  "column_break_fanr",
+  "notice_period_unit",
+  "column_break_qyic",
+  "notice_period_term",
+  "sb_automatic_renewal",
+  "automatic_renewal_amount",
+  "column_break_nwgh",
+  "automatic_renewal_unit",
+  "sb_details",
+  "signing_date",
+  "contract_number",
+  "column_break_cjmw",
+  "accountable_person",
+  "use_as_template",
+  "sb_billing",
+  "payment_term",
+  "billing_type",
+  "column_break_hqmh",
+  "payment_method",
+  "sb_positions",
+  "positions"
+ ],
+ "fields": [
+  {
+   "fieldname": "sb_contract",
+   "fieldtype": "Section Break",
+   "label": "Contract"
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Title",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "default": "Customer",
+   "fieldname": "party_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Party Type",
+   "options": "Customer\nSupplier\nEmployee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "party_name",
+   "fieldtype": "Dynamic Link",
+   "in_list_view": 1,
+   "label": "Party Name",
+   "options": "party_type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "contract_type",
+   "fieldtype": "Link",
+   "label": "Contract Type",
+   "options": "Contract Type"
+  },
+  {
+   "fieldname": "column_break_sqjx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_indefinite",
+   "fieldtype": "Check",
+   "label": "Is indefinite"
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start date"
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End date / minimum runtime"
+  },
+  {
+   "fieldname": "order_number",
+   "fieldtype": "Data",
+   "label": "Order number"
+  },
+  {
+   "fieldname": "commission",
+   "fieldtype": "Data",
+   "label": "Commission"
+  },
+  {
+   "depends_on": "eval:doc.is_indefinite",
+   "fieldname": "sb_notice_period",
+   "fieldtype": "Section Break",
+   "label": "Notice Period"
+  },
+  {
+   "fieldname": "notice_period_amount",
+   "fieldtype": "Int"
+  },
+  {
+   "fieldname": "column_break_fanr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "notice_period_unit",
+   "fieldtype": "Select",
+   "options": "\nday(s)\nweek(s)\nmonth(s)\nyear(s)"
+  },
+  {
+   "fieldname": "column_break_qyic",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "notice_period_term",
+   "fieldtype": "Select",
+   "options": "\nbefore Contract end\nat Month's end\nat Quarter's end\nat Calendar year end\non 15th of month\non 15th or end of month\nat mid-year"
+  },
+  {
+   "depends_on": "eval:doc.is_indefinite",
+   "fieldname": "sb_automatic_renewal",
+   "fieldtype": "Section Break",
+   "label": "Automatic renewal"
+  },
+  {
+   "fieldname": "automatic_renewal_amount",
+   "fieldtype": "Int"
+  },
+  {
+   "fieldname": "column_break_nwgh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "automatic_renewal_unit",
+   "fieldtype": "Select",
+   "options": "\nday(s)\nweek(s)\nmonth(s)\nyear(s)"
+  },
+  {
+   "fieldname": "sb_details",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "signing_date",
+   "fieldtype": "Date",
+   "label": "Signing date"
+  },
+  {
+   "fieldname": "contract_number",
+   "fieldtype": "Data",
+   "label": "Contract number"
+  },
+  {
+   "fieldname": "column_break_cjmw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Active\nInactive\nDraft",
+   "reqd": 1
+  },
+  {
+   "fieldname": "accountable_person",
+   "fieldtype": "Link",
+   "label": "Accountable Person",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "use_as_template",
+   "fieldtype": "Check",
+   "label": "Use as template"
+  },
+  {
+   "fieldname": "sb_billing",
+   "fieldtype": "Section Break",
+   "label": "Billing"
+  },
+  {
+   "fieldname": "payment_term",
+   "fieldtype": "Link",
+   "label": "Payment term",
+   "options": "Payment Term"
+  },
+  {
+   "fieldname": "billing_type",
+   "fieldtype": "Select",
+   "label": "Billing type",
+   "options": "\nCreate sales order\nCreate invoice before billing period\nCreate invoice after billing period\nNot billable"
+  },
+  {
+   "fieldname": "column_break_hqmh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "payment_method",
+   "fieldtype": "Link",
+   "label": "Payment method",
+   "options": "Mode of Payment"
+  },
+  {
+   "fieldname": "sb_positions",
+   "fieldtype": "Section Break",
+   "label": "Positions"
+  },
+  {
+   "fieldname": "positions",
+   "fieldtype": "Table",
+   "options": "Contract Position"
+  },
+  {
+   "fieldname": "termination_effective_date",
+   "fieldtype": "Date",
+   "label": "Termination effective date",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-11-16 19:14:29.060609",
+ "modified_by": "Administrator",
+ "module": "Contracts",
+ "name": "Extended Contract",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
