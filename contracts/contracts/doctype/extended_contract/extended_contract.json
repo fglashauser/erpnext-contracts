@@ -9,8 +9,7 @@
   "sb_contract",
   "title",
   "status",
-  "party_type",
-  "party_name",
+  "customer",
   "contract_type",
   "column_break_sqjx",
   "is_indefinite",
@@ -19,12 +18,12 @@
   "order_number",
   "commission",
   "sb_notice_period",
-  "notice_period_amount",
+  "np_amount",
   "termination_effective_date",
   "column_break_fanr",
-  "notice_period_unit",
+  "np_unit",
   "column_break_qyic",
-  "notice_period_term",
+  "np_term",
   "sb_automatic_renewal",
   "automatic_renewal_amount",
   "column_break_nwgh",
@@ -34,12 +33,15 @@
   "contract_number",
   "column_break_cjmw",
   "accountable_person",
-  "use_as_template",
   "sb_billing",
-  "payment_term",
   "billing_type",
+  "income_account",
   "column_break_hqmh",
-  "payment_method",
+  "taxes_and_charges",
+  "sb_payment_terms",
+  "due_days",
+  "column_break_pdjm",
+  "mode_of_payment",
   "sb_positions",
   "positions"
  ],
@@ -56,23 +58,6 @@
    "label": "Title",
    "reqd": 1,
    "unique": 1
-  },
-  {
-   "default": "Customer",
-   "fieldname": "party_type",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Party Type",
-   "options": "Customer\nSupplier\nEmployee",
-   "reqd": 1
-  },
-  {
-   "fieldname": "party_name",
-   "fieldtype": "Dynamic Link",
-   "in_list_view": 1,
-   "label": "Party Name",
-   "options": "party_type",
-   "reqd": 1
   },
   {
    "fieldname": "contract_type",
@@ -117,26 +102,12 @@
    "label": "Notice Period"
   },
   {
-   "fieldname": "notice_period_amount",
-   "fieldtype": "Int"
-  },
-  {
    "fieldname": "column_break_fanr",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "notice_period_unit",
-   "fieldtype": "Select",
-   "options": "\nday(s)\nweek(s)\nmonth(s)\nyear(s)"
-  },
-  {
    "fieldname": "column_break_qyic",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "notice_period_term",
-   "fieldtype": "Select",
-   "options": "\nbefore Contract end\nat Month's end\nat Quarter's end\nat Calendar year end\non 15th of month\non 15th or end of month\nat mid-year"
   },
   {
    "depends_on": "eval:doc.is_indefinite",
@@ -192,37 +163,20 @@
    "reqd": 1
   },
   {
-   "default": "0",
-   "fieldname": "use_as_template",
-   "fieldtype": "Check",
-   "label": "Use as template"
-  },
-  {
    "fieldname": "sb_billing",
    "fieldtype": "Section Break",
    "label": "Billing"
   },
   {
-   "fieldname": "payment_term",
-   "fieldtype": "Link",
-   "label": "Payment term",
-   "options": "Payment Term"
-  },
-  {
+   "default": "Create invoice before billing period",
    "fieldname": "billing_type",
    "fieldtype": "Select",
    "label": "Billing type",
-   "options": "\nCreate sales order\nCreate invoice before billing period\nCreate invoice after billing period\nNot billable"
+   "options": "Create invoice before billing period\nCreate invoice after billing period\nNot billable"
   },
   {
    "fieldname": "column_break_hqmh",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "payment_method",
-   "fieldtype": "Link",
-   "label": "Payment method",
-   "options": "Mode of Payment"
   },
   {
    "fieldname": "sb_positions",
@@ -239,11 +193,66 @@
    "fieldtype": "Date",
    "label": "Termination effective date",
    "read_only": 1
+  },
+  {
+   "fieldname": "np_amount",
+   "fieldtype": "Int"
+  },
+  {
+   "fieldname": "np_unit",
+   "fieldtype": "Select",
+   "options": "\nday(s)\nweek(s)\nmonth(s)\nyear(s)"
+  },
+  {
+   "fieldname": "np_term",
+   "fieldtype": "Select",
+   "options": "\nbefore Contract end\nat Month's end\nat Quarter's end\nat Calendar year end\non 15th of month\non 15th or end of month\nat mid-year"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "taxes_and_charges",
+   "fieldtype": "Link",
+   "label": "Taxes and Charges",
+   "options": "Sales Taxes and Charges Template"
+  },
+  {
+   "fieldname": "sb_payment_terms",
+   "fieldtype": "Section Break",
+   "label": "Payment Terms"
+  },
+  {
+   "fieldname": "income_account",
+   "fieldtype": "Link",
+   "label": "Income Account",
+   "options": "Account",
+   "reqd": 1
+  },
+  {
+   "fieldname": "due_days",
+   "fieldtype": "Int",
+   "label": "Due days"
+  },
+  {
+   "fieldname": "column_break_pdjm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "mode_of_payment",
+   "fieldtype": "Link",
+   "label": "Mode of Payment",
+   "options": "Mode of Payment"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-11-16 19:14:29.060609",
+ "modified": "2023-11-25 23:53:37.326740",
  "modified_by": "Administrator",
  "module": "Contracts",
  "name": "Extended Contract",

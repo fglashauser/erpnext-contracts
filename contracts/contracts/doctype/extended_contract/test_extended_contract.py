@@ -7,7 +7,7 @@ import frappe
 import unittest
 
 from .extended_contract import (
-    get_last_day_of_period,
+    get_last_day_of_notice_period,
     calculate_termination_date,
     NoticePeriodTerm,
     NoticePeriodUnit
@@ -22,37 +22,37 @@ class TestExtendedContract(FrappeTestCase):
         end_date = date(2024, 7, 11)
 
         # before Contract end
-        last_day = get_last_day_of_period(end_date, NoticePeriodTerm.BeforeContractEnd)
+        last_day = get_last_day_of_notice_period(end_date, NoticePeriodTerm.BeforeContractEnd)
         self.assertEqual(last_day, date(2024, 7, 11))
 
         # at Month's end
-        last_day = get_last_day_of_period(end_date, NoticePeriodTerm.AtMonthEnd)
+        last_day = get_last_day_of_notice_period(end_date, NoticePeriodTerm.AtMonthEnd)
         self.assertEqual(last_day, date(2024, 7, 31))
 
         # at Quarter's end
-        last_day = get_last_day_of_period(end_date, NoticePeriodTerm.AtQuarterEnd)
+        last_day = get_last_day_of_notice_period(end_date, NoticePeriodTerm.AtQuarterEnd)
         self.assertEqual(last_day, date(2024, 9, 30))
 
         # at Calendar year end
-        last_day = get_last_day_of_period(end_date, NoticePeriodTerm.AtCalendarYearEnd)
+        last_day = get_last_day_of_notice_period(end_date, NoticePeriodTerm.AtCalendarYearEnd)
         self.assertEqual(last_day, date(2024, 12, 31))
 
         # on 15th of month
-        last_day = get_last_day_of_period(end_date, NoticePeriodTerm.On15th)
+        last_day = get_last_day_of_notice_period(end_date, NoticePeriodTerm.On15th)
         self.assertEqual(last_day, date(2024, 7, 15))
-        last_day = get_last_day_of_period(date(2024, 7, 16), NoticePeriodTerm.On15th)
+        last_day = get_last_day_of_notice_period(date(2024, 7, 16), NoticePeriodTerm.On15th)
         self.assertEqual(last_day, date(2024, 8, 15))
 
         # on 15th or end of month
-        last_day = get_last_day_of_period(end_date, NoticePeriodTerm.On15OrEnd)
+        last_day = get_last_day_of_notice_period(end_date, NoticePeriodTerm.On15OrEnd)
         self.assertEqual(last_day, date(2024, 7, 15))
-        last_day = get_last_day_of_period(date(2024, 7, 16), NoticePeriodTerm.On15OrEnd)
+        last_day = get_last_day_of_notice_period(date(2024, 7, 16), NoticePeriodTerm.On15OrEnd)
         self.assertEqual(last_day, date(2024, 7, 31))
 
         # at mid-year
-        last_day = get_last_day_of_period(end_date, NoticePeriodTerm.AtMidYear)
+        last_day = get_last_day_of_notice_period(end_date, NoticePeriodTerm.AtMidYear)
         self.assertEqual(last_day, date(2024, 12, 31))
-        last_day = get_last_day_of_period(date(2024, 6, 1), NoticePeriodTerm.AtMidYear)
+        last_day = get_last_day_of_notice_period(date(2024, 6, 1), NoticePeriodTerm.AtMidYear)
         self.assertEqual(last_day, date(2024, 6, 30))
 
 

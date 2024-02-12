@@ -6,6 +6,9 @@ app_email = "info@pc-giga.de"
 app_license = "mit"
 required_apps = ["erpnext"]
 
+# Extend Doctype Sales Invoice with link to Extended Contract
+after_install = "contracts.install.after_install"
+
 # fixtures = [
 #     {"dt": "DocType", "filters": [
 #         ["module", "=", "Contracts"]

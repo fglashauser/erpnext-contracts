@@ -2,56 +2,95 @@
 # For license information, please see license.txt
 
 import frappe
+from frappe import utils
 from frappe.model.document import Document
 from datetime import date, timedelta, datetime
 from dateutil.relativedelta import relativedelta
 from ...tools.base_enum import BaseEnum
+from ..extended_contract.billing_type import BillingType
+#from .billing_position import BillingPosition
+from .billing_cycle import BillingCycle
+from .billing_period import BillingPeriod
 
 
 class ContractPosition(Document):
-	pass
+    def _billing_periods(self):
+        if self._billing_periods:
+            return self._billing_periods
+        # TODO: Implement
+
+        
 
 
-class BillingCycle(BaseEnum):
-    """Enumeration for the billing cycle.
-    """
-    Daily       = "daily"
-    Weekly      = "weekly"
-    Monthly     = "monthly"
-    Quarterly   = "1/4 year"
-    Halfyearly  = "1/2 year"
-    Yearly      = "yearly"
-    TwoYears    = "2 years"
-    ThreeYears  = "3 years"
-    FourYears   = "4 years"
-    FiveYears   = "5 years"
-
-    def get_timedelta(self) -> timedelta:
-        """Returns the timedelta for the given billing cycle.
-
-        Returns:
-            timedelta: Timedelta.
+    def min_billable_date(self) -> date:
+        """Returns the minimum billable date for the given contract position.
         """
-        if self == BillingCycle.Daily:
-            return timedelta(days=1)
-        elif self == BillingCycle.Weekly:
-            return timedelta(weeks=1)
-        elif self == BillingCycle.Monthly:
-            return relativedelta(months=1)
-        elif self == BillingCycle.Quarterly:
-            return relativedelta(months=3)
-        elif self == BillingCycle.Halfyearly:
-            return relativedelta(months=6)
-        elif self == BillingCycle.Yearly:
-            return relativedelta(years=1)
-        elif self == BillingCycle.TwoYears:
-            return relativedelta(years=2)
-        elif self == BillingCycle.ThreeYears:
-            return relativedelta(years=3)
-        elif self == BillingCycle.FourYears:
-            return relativedelta(years=4)
-        elif self == BillingCycle.FiveYears:
-            return relativedelta(years=5)
+        contract = frappe.get_doc("Extended Contract", self.parent)
+        if not contract.start_date:
+            return None
+        if not self.valid_from:
+            self.valid_from = contract.start_date
+        contract_start_date = utils.getdate(contract.start_date)
+        valid_from          = utils.getdate(self.valid_from)
+        last_billing_date   = utils.getdate(self.last_billing_date) if self.last_billing_date else None
+        min_date            = max(contract_start_date, valid_from, last_billing_date) \
+                            if last_billing_date else max(contract_start_date, valid_from)
+        # TODO: Logikfehler: Wenn last_billing_date nicht Perioden-Start, dann verschiebt sich Perioden-Start
+        return min_date
+    
+    def max_billable_date(self) -> date:
+        """Returns the maximum billable date for the given contract position.
+        """
+        contract = frappe.get_doc("Extended Contract", self.parent)
+        if not contract.end_date or (contract.is_indefinite and not self.valid_until):
+            return date.today()
+        if not self.valid_until:
+            self.valid_until = contract.end_date
+        contract_end_date   = utils.getdate(contract.end_date)
+        valid_until         = utils.getdate(self.valid_until)
+        return min(contract_end_date, valid_until)
+
+    # def get_billable_positions(self) -> list(BillingPosition):
+    #     """Returns a list of billing positions for the given contract position.
+    #     """
+    #     contract = frappe.get_doc("Extended Contract", self.parent)
+    #     min_billable_date = self.min_billable_date()
+    #     max_billable_date = self.max_billable_date()
+
+    #     # Required: min billable date
+    #     if not min_billable_date:
+    #         return []
+
+    #     # Required: billing cycle
+    #     billing_cycle = BillingCycle.from_str(self.billing_cycle)
+    #     if not billing_cycle:
+    #         return []
+        
+    #     # Required: billing type (billable or not)
+    #     billing_type = BillingType.from_str(contract.billing_type)
+    #     if not billing_type or billing_type == BillingType.NotBilllable:
+    #         return []
+        
+
+    #     # Create billing positions
+    #     positions = []
+    #     curr_date = min_billable_date
+    #     while curr_date <= max_billable_date:
+    #         positions.append(BillingPosition(
+    #             contract_position=self,
+    #             billing_period=BillingPeriod(curr_date, billing_cycle)
+    #         ))
+    #         curr_date += billing_cycle.get_timedelta()
+        
+
+    def get_next_billing_date(self) -> date:
+        """Returns the next billing date for the given contract position.
+        """
+        unbilled_positions = self.get_unbilled_positions()
+        if not unbilled_positions or len(unbilled_positions) == 0:
+            return None
+        
+
 
 
 @frappe.whitelist()
@@ -71,66 +110,3 @@ def get_item_details(item_code: str) -> dict:
         "uom": item.stock_uom,
         "rate": item.standard_rate
     }
-
-
-@frappe.whitelist()
-def calculate_next_billing_date(contract_start_date: str, billing_cycle: str, valid_from: str, \
-                                valid_until: str, last_billing_date: str) -> date:
-    """Returns the next billing date for the given start date and frequency.
-
-    Args:
-        contract_start_date (str): Contract start date.
-        billing_cycle (str): Billing cycle.
-        valid_from (str): Valid from date.
-        valid_until (str): Valid until date.
-        last_billing_date (str): Last billing date.
-
-    Returns:
-        date: Next billing date.
-    """
-    # If valid from is unset, use contract start date
-    if not valid_from:
-        valid_from = contract_start_date
-
-    # Mandatory: Check if billing cycle is valid
-    if billing_cycle:
-        billing_cycle = BillingCycle.from_str(billing_cycle)
-        if not billing_cycle:
-            frappe.throw("Invalid billing cycle.")
-    else:
-        return None
-
-    # Mandatory: Check if valid from is valid date
-    if valid_from:
-        try:
-            valid_from = datetime.strptime(valid_from, "%Y-%m-%d").date()
-        except ValueError:
-            frappe.throw("Invalid format: valid from date.")
-    else:
-        return None
-
-    # Optional: Check if valid until is valid date
-    if valid_until:
-        try:
-            valid_until = datetime.strptime(valid_until, "%Y-%m-%d").date()
-        except ValueError:
-            frappe.throw("Invalid format: valid until date.")
-
-    # Optional: Check if last billing date is valid date
-    if last_billing_date:
-        try:
-            last_billing_date = datetime.strptime(last_billing_date, "%Y-%m-%d").date()
-        except ValueError:
-            frappe.throw("Invalid format: last billing date.")
-
-    # Get highest date: valid from or last billing date
-    next_billing_date = max(valid_from, last_billing_date) if last_billing_date else valid_from
-
-    # Calculate next billing date
-    next_billing_date = next_billing_date + billing_cycle.get_timedelta()
-
-    # Check if next billing date is valid until date
-    if valid_until and next_billing_date > valid_until:
-        return None
-
-    return next_billing_date
