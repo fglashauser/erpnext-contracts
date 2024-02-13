@@ -27,6 +27,29 @@ class ExtendedContract(Document):
         self.update_termination_date()
 
     @frappe.whitelist()
+    def get_default_values(self) -> "Document":
+        """Gets default values for the extended contract and returns Document-object.
+        """
+        if not self.is_new():
+            return
+        
+        config = frappe.get_single("Contract Settings")
+
+        # Set default values
+        self.is_indefinite              = True
+        self.start_date                 = date.today()
+        self.end_date                   = date.today() + relativedelta(years=1)
+        self.np_amount                  = config.np_amount
+        self.np_unit                    = config.np_unit
+        self.np_term                    = config.np_term
+        self.automatic_renewal_amount   = config.automatic_renewal_amount
+        self.automatic_renewal_unit     = config.automatic_renewal_unit
+        self.billing_type               = config.billing_type
+        self.income_account             = config.income_account
+        self.taxes_and_charges          = config.taxes_and_charges
+        return self
+
+    @frappe.whitelist()
     def update_termination_date(self) -> date:
         """Updates the termination effective date and returns it.
 

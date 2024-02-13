@@ -221,7 +221,6 @@
    "label": "Payment Terms"
   },
   {
-   "default": "Contract Settings.income_account",
    "fieldname": "income_account",
    "fieldtype": "Link",
    "label": "Income Account",
@@ -302,7 +301,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-13 17:57:35.490173",
+ "modified": "2024-02-13 18:52:56.476835",
  "modified_by": "Administrator",
  "module": "Contracts",
  "name": "Extended Contract",
