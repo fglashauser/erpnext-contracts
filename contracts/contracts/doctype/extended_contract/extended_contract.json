@@ -12,11 +12,18 @@
   "customer",
   "contract_type",
   "column_break_sqjx",
-  "is_indefinite",
-  "start_date",
-  "end_date",
-  "order_number",
+  "accountable_person",
+  "signing_date",
+  "contract_number",
   "commission",
+  "sb_positions",
+  "positions",
+  "tb_terms",
+  "dates_section",
+  "start_date",
+  "column_break_oaau",
+  "end_date",
+  "is_indefinite",
   "sb_notice_period",
   "np_amount",
   "termination_effective_date",
@@ -28,11 +35,7 @@
   "automatic_renewal_amount",
   "column_break_nwgh",
   "automatic_renewal_unit",
-  "sb_details",
-  "signing_date",
-  "contract_number",
-  "column_break_cjmw",
-  "accountable_person",
+  "terms_tab",
   "sb_billing",
   "billing_type",
   "income_account",
@@ -42,8 +45,12 @@
   "due_days",
   "column_break_pdjm",
   "mode_of_payment",
-  "sb_positions",
-  "positions"
+  "communication_tab",
+  "contact",
+  "phone",
+  "column_break_fdeu",
+  "email",
+  "email_template"
  ],
  "fields": [
   {
@@ -86,11 +93,6 @@
    "label": "End date / minimum runtime"
   },
   {
-   "fieldname": "order_number",
-   "fieldtype": "Data",
-   "label": "Order number"
-  },
-  {
    "fieldname": "commission",
    "fieldtype": "Data",
    "label": "Commission"
@@ -129,11 +131,6 @@
    "options": "\nday(s)\nweek(s)\nmonth(s)\nyear(s)"
   },
   {
-   "fieldname": "sb_details",
-   "fieldtype": "Section Break",
-   "label": "Details"
-  },
-  {
    "fieldname": "signing_date",
    "fieldtype": "Date",
    "label": "Signing date"
@@ -142,10 +139,6 @@
    "fieldname": "contract_number",
    "fieldtype": "Data",
    "label": "Contract number"
-  },
-  {
-   "fieldname": "column_break_cjmw",
-   "fieldtype": "Column Break"
   },
   {
    "default": "Draft",
@@ -228,6 +221,7 @@
    "label": "Payment Terms"
   },
   {
+   "default": "Contract Settings.income_account",
    "fieldname": "income_account",
    "fieldtype": "Link",
    "label": "Income Account",
@@ -248,11 +242,67 @@
    "fieldtype": "Link",
    "label": "Mode of Payment",
    "options": "Mode of Payment"
+  },
+  {
+   "fieldname": "tb_terms",
+   "fieldtype": "Tab Break",
+   "label": "Periods"
+  },
+  {
+   "fieldname": "terms_tab",
+   "fieldtype": "Tab Break",
+   "label": "Terms"
+  },
+  {
+   "fieldname": "communication_tab",
+   "fieldtype": "Tab Break",
+   "label": "Communication"
+  },
+  {
+   "fieldname": "contact",
+   "fieldtype": "Link",
+   "label": "Contact",
+   "options": "Contact"
+  },
+  {
+   "fieldname": "column_break_fdeu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Caution: E-Mails are only sent if the Contract type is configured in the settings.",
+   "fetch_from": "contact.email_id",
+   "fetch_if_empty": 1,
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "E-Mail"
+  },
+  {
+   "description": "If set it overrides template in settings.",
+   "fieldname": "email_template",
+   "fieldtype": "Link",
+   "label": "Custom E-Mail template",
+   "options": "Email Template"
+  },
+  {
+   "fieldname": "dates_section",
+   "fieldtype": "Section Break",
+   "label": "Dates"
+  },
+  {
+   "fieldname": "column_break_oaau",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "contact.phone",
+   "fetch_if_empty": 1,
+   "fieldname": "phone",
+   "fieldtype": "Data",
+   "label": "Phone"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-11-25 23:53:37.326740",
+ "modified": "2024-02-13 17:57:35.490173",
  "modified_by": "Administrator",
  "module": "Contracts",
  "name": "Extended Contract",

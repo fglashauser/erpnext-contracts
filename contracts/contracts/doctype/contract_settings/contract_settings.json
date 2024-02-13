@@ -1,0 +1,143 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-02-13 16:17:48.260062",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "tb_defaults",
+  "sb_notice_period",
+  "np_amount",
+  "column_break_wmqq",
+  "np_unit",
+  "column_break_yaam",
+  "np_term",
+  "sb_auto_renewal",
+  "automatic_renewal_amount",
+  "column_break_fftr",
+  "automatic_renewal_unit",
+  "sb_billing",
+  "billing_type",
+  "income_account",
+  "column_break_ekin",
+  "taxes_and_charges",
+  "tb_email",
+  "auto_mail"
+ ],
+ "fields": [
+  {
+   "fieldname": "tb_defaults",
+   "fieldtype": "Tab Break",
+   "label": "Defaults"
+  },
+  {
+   "fieldname": "sb_notice_period",
+   "fieldtype": "Section Break",
+   "label": "Notice Period"
+  },
+  {
+   "fieldname": "np_amount",
+   "fieldtype": "Int"
+  },
+  {
+   "fieldname": "column_break_wmqq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "np_unit",
+   "fieldtype": "Select",
+   "options": "\nday(s)\nweek(s)\nmonth(s)\nyear(s)"
+  },
+  {
+   "fieldname": "column_break_yaam",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "np_term",
+   "fieldtype": "Select",
+   "options": "\nbefore Contract end\nat Month's end\nat Quarter's end\nat Calendar year end\non 15th of month\non 15th or end of month\nat mid-year"
+  },
+  {
+   "fieldname": "tb_email",
+   "fieldtype": "Tab Break",
+   "label": "E-Mail"
+  },
+  {
+   "fieldname": "sb_auto_renewal",
+   "fieldtype": "Section Break",
+   "label": "Automatic renewal"
+  },
+  {
+   "fieldname": "automatic_renewal_amount",
+   "fieldtype": "Int"
+  },
+  {
+   "fieldname": "column_break_fftr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "automatic_renewal_unit",
+   "fieldtype": "Select",
+   "options": "\nday(s)\nweek(s)\nmonth(s)\nyear(s)"
+  },
+  {
+   "fieldname": "sb_billing",
+   "fieldtype": "Section Break",
+   "label": "Billing"
+  },
+  {
+   "default": "Create invoice before billing period",
+   "fieldname": "billing_type",
+   "fieldtype": "Select",
+   "label": "Billing type",
+   "options": "Create invoice before billing period\nCreate invoice after billing period\nNot billable"
+  },
+  {
+   "fieldname": "income_account",
+   "fieldtype": "Link",
+   "label": "Income Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "column_break_ekin",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "taxes_and_charges",
+   "fieldtype": "Link",
+   "label": "Taxes and Charges",
+   "options": "Sales Taxes and Charges Template"
+  },
+  {
+   "columns": 3,
+   "description": "Automatic e-mail sending is activated for all listed Contract types.",
+   "fieldname": "auto_mail",
+   "fieldtype": "Table",
+   "label": "Automatic E-Mail sending",
+   "options": "Contract Automail Mapping"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-02-13 16:43:29.533705",
+ "modified_by": "Administrator",
+ "module": "Contracts",
+ "name": "Contract Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

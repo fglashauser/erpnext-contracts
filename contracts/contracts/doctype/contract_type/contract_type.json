@@ -6,7 +6,9 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "title"
+  "title",
+  "column_break_tbwo",
+  "commission"
  ],
  "fields": [
   {
@@ -17,11 +19,20 @@
    "label": "Title",
    "reqd": 1,
    "unique": 1
+  },
+  {
+   "fieldname": "column_break_tbwo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "commission",
+   "fieldtype": "Data",
+   "label": "Commission"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-11-15 11:49:01.975158",
+ "modified": "2024-02-13 18:09:03.037383",
  "modified_by": "Administrator",
  "module": "Contracts",
  "name": "Contract Type",
