@@ -50,8 +50,14 @@ class ExtendedContract(Document):
         return self
 
     @frappe.whitelist()
-    def update_termination_date(self) -> date:
-        """Updates the termination effective date and returns it.
+    def get_contract_type_commission(self) -> str:
+        """Returns the contract type's commission.
+        """
+        return frappe.get_value("Contract Type", self.contract_type, "commission")
+
+    @frappe.whitelist()
+    def get_termination_date(self) -> date:
+        """Returns the termination effective date.
 
         Returns:
             date: Termination effective date.

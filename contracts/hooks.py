@@ -9,6 +9,9 @@ required_apps = ["erpnext"]
 # Extend Doctype Sales Invoice with link to Extended Contract
 after_install = "contracts.install.after_install"
 
+# Load additional Doctype-JS for Contract Position (child table of Extended Contract)
+doctype_js = {"Extended Contract" : "contracts/doctype/contract_position/contract_position.js"}
+
 # fixtures = [
 #     {"dt": "DocType", "filters": [
 #         ["module", "=", "Contracts"]

@@ -93,6 +93,9 @@
    "label": "End date / minimum runtime"
   },
   {
+   "description": "will be filled by Commission of Contract Type if empty",
+   "fetch_from": "contract_type.commission",
+   "fetch_if_empty": 1,
    "fieldname": "commission",
    "fieldtype": "Data",
    "label": "Commission"
@@ -258,6 +261,8 @@
    "label": "Communication"
   },
   {
+   "fetch_from": "customer.customer_primary_contact",
+   "fetch_if_empty": 1,
    "fieldname": "contact",
    "fieldtype": "Link",
    "label": "Contact",
@@ -301,7 +306,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-13 18:52:56.476835",
+ "modified": "2024-02-13 22:07:33.407128",
  "modified_by": "Administrator",
  "module": "Contracts",
  "name": "Extended Contract",

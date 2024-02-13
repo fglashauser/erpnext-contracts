@@ -1,28 +1,35 @@
-// Copyright (c) 2023, PC-Giga and contributors
+// Copyright (c) 2024, PC-Giga and contributors
 // For license information, please see license.txt
 
 frappe.ui.form.on('Extended Contract', {
     refresh(frm) {
+        // Autofills the default values from the settings.
         autofill_defaults(frm);
+
+        // Adds the "Create invoice(s)" button to the form if contract is active.
         add_invoices_button(frm);
     },
     end_date(frm) {
+        // Updates the termination effective date based on the end date and the notice period.
         update_termination_effective_date(frm);
     },
     np_amount(frm) {
+        // Updates the termination effective date based on the end date and the notice period.
         update_termination_effective_date(frm);
     },
     np_unit(frm) {
+        // Updates the termination effective date based on the end date and the notice period.
         update_termination_effective_date(frm);
     },
     np_term(frm) {
+        // Updates the termination effective date based on the end date and the notice period.
         update_termination_effective_date(frm);
     }
 });
 
-//
-// Adds the "Create invoice(s)" button to the form if contract is active
-//
+/**
+ * Adds the "Create invoice(s)" button to the form if contract is active.
+ */
 function add_invoices_button(frm) {
     if (frm.doc.status == 'Active') {
         frm.add_custom_button(__('Create invoice(s)'), () => {
@@ -31,9 +38,9 @@ function add_invoices_button(frm) {
     }
 }
 
-//
-// Autofills the default values from the settings
-//
+/**
+ * Autofills the default values from the settings.
+ */
 function autofill_defaults(frm) {
     if (!frm.doc.__islocal)
         return;
@@ -55,44 +62,9 @@ function autofill_defaults(frm) {
         });
 }
 
-// frappe.ui.form.on('Contract Position', {
-//     form_render(frm, cdt, cdn) {
-//         update_next_billing_date(frm, cdt, cdn);
-//     },
-//     item(frm, cdt, cdn) {
-//         let row = locals[cdt][cdn];
-
-//         if (row.item) {
-//             // update the item details on item change
-//             frappe.call({
-//                 method: 'contracts.contracts.doctype.contract_position.contract_position.get_item_details',
-//                 args: {
-//                     item_code: row.item
-//                 },
-//                 callback: function(response) {
-//                     let item = response.message;
-//                     frappe.model.set_value(cdt, cdn, 'item_name', item.item_name);
-//                     frappe.model.set_value(cdt, cdn, 'uom', item.uom);
-//                     frappe.model.set_value(cdt, cdn, 'rate', item.rate);
-//                     frappe.model.set_value(cdt, cdn, 'description', item.description);
-//                 } 
-//             });
-//         }
-//     },
-//     billing_cycle(frm, cdt, cdn) {
-//         update_next_billing_date(frm, cdt, cdn);
-//     },
-//     valid_from(frm, cdt, cdn) {
-//         update_next_billing_date(frm, cdt, cdn);
-//     },
-//     valid_until(frm, cdt, cdn) {
-//         update_next_billing_date(frm, cdt, cdn);
-//     },
-//     last_billing_date(frm, cdt, cdn) {
-//         update_next_billing_date(frm, cdt, cdn);
-//     }
-// });
-
+/**
+ * Updates the termination effective date based on the end date and the notice period.
+ */
 function update_termination_effective_date(frm) {
     frm.call('update_termination_date')
         .then(r => {
@@ -100,10 +72,3 @@ function update_termination_effective_date(frm) {
         });
 }
 
-function update_next_billing_date(frm, cdt, cdn) {
-    let row = frappe.get_doc(cdt, cdn);
-    frm.call('get_position_next_billing_date', { position_dict: row })
-        .then(r => {
-            frappe.model.set_value(cdt, cdn, 'next_billing_date', r.message);
-        });
-}
